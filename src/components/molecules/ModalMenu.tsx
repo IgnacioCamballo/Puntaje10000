@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Constants from "expo-constants"
 import Icon from 'react-native-vector-icons/AntDesign'
@@ -12,7 +12,9 @@ type ModalMenuProps = {
 }
 
 export default function ModalMenu({setModal, setModalEditPlayers}: ModalMenuProps) {
-  const {players, setPlayers} = useFarkle()
+  const {players, lenguage, setPlayers, setLenguage} = useFarkle()
+
+  const [lenguageView, setLenguageView] = useState(false)
   
   const resetAlert = () => {
     Alert.alert(
@@ -48,7 +50,7 @@ export default function ModalMenu({setModal, setModalEditPlayers}: ModalMenuProp
     <View style={styles.generalContainer}>
       <View style={styles.container}>
         <View style={styles.rowLine}>
-          <Text style={styles.text} onPress={() => {}}>Idioma</Text>
+          <Text style={styles.text} onPress={() => setLenguageView(!lenguageView)}>Idioma</Text>
           <Icon 
             name='closecircleo'
             size={24}
@@ -56,6 +58,13 @@ export default function ModalMenu({setModal, setModalEditPlayers}: ModalMenuProp
             style={styles.icon}
             />
         </View>
+
+        {lenguageView && 
+          <View style={styles.lenguagesContainer}>
+            <Text onPress={() => setLenguage("es")} style={[styles.textLenguage, lenguage === "es" ? styles.bgGrey : {}]}>Español</Text>
+            <Text onPress={() => setLenguage("en")} style={[styles.textLenguage, lenguage === "en" ? styles.bgGrey : {}]}>English</Text>
+          </View>
+        }
 
         <Text style={styles.text} onPress={() => resetAlert()}>Resetear Puntos</Text>
         <Text style={styles.text} onPress={() => {setModalEditPlayers(true), setModal(false)}}>Editar Jugadores</Text>
@@ -99,6 +108,15 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.F24,
     alignSelf: "flex-start"
   },
+  textLenguage: {
+    fontSize: theme.fontSize.F20,
+    width: "100%",
+    textAlign: "center"
+  },
+  lenguagesContainer: {
+    borderWidth: 0.5,
+    borderColor: theme.color.black,
+  },
   icon: {
     transform: [{translateY: -6}]
   },
@@ -106,5 +124,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
+  },
+  bgGrey: {
+    backgroundColor: theme.color.softGrey
   }
 })

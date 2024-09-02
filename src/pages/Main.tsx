@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     height: 80
   },
   publicidad: {
-    height: 80, 
+    height: 60, 
     width: "100%", 
     backgroundColor: theme.color.white,
     position: "relative",

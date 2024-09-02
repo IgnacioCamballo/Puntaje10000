@@ -65,17 +65,19 @@ export default function AddPoints({playerKey}: AddPointsProps) {
       
       <View style={styles.buttonsContainer}>
         <View style={styles.points}>
-          <TextShownArea color={theme.color.softGrey} width={150} height={32}>
+          <TextShownArea color={theme.color.softGrey} width={140} height={32}>
             <Text style={styles.font24}>{sum}</Text>
           </TextShownArea>
 
-          <Button color={theme.color.redCancel} width={60} press={() => {setSum(0)}}>
-            <Text style={styles.font16}>Cancel</Text>
-          </Button>
+          <View style={styles.sumCancelButtons}>
+            <Button color={theme.color.redCancel} width={60} press={() => {setSum(0)}}>
+              <Text style={styles.font16}>Cancel</Text>
+            </Button>
 
-          <Button color={theme.color.greenAddButton} width={60} press={() => addScore()}>
-            <Text style={styles.font16}>Sumar</Text>
-          </Button>
+            <Button color={theme.color.greenAddButton} width={60} press={() => addScore()}>
+              <Text style={styles.font16}>Sumar</Text>
+            </Button>
+          </View>
         </View>
 
         <ButtonsSum total={sum} setTotal={setSum}/>
@@ -103,8 +105,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.8
   },
   buttonsContainer: {
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     paddingVertical: 8,
+  },
+  sumCancelButtons: {
+    flexDirection: "row",
+    gap: 8
   },
   points: {
     flexDirection: "row",

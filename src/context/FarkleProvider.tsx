@@ -59,9 +59,11 @@ const FarkleProvider = ({children}: props) => {
         players,
         playerModal,
         whosOpen,
+        lenguage,
         setPlayers,
         setPlayerModal,
-        setWhosOpen
+        setWhosOpen,
+        setLenguage
       }}
     >
       {children}

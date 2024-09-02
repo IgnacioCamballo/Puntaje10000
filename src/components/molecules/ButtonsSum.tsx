@@ -10,40 +10,42 @@ type ButtonSumProps = {
 
 export default function ButtonsSum({total, setTotal}: ButtonSumProps) {
   return (
-    <View>
-       <View style={styles.add}>
-          <Button color={theme.color.grey} width={80} press={() => setTotal(total + 1000)}>
-            <Text style={styles.font16}>+1000</Text>
-          </Button>
-          
-          <Button color={theme.color.grey} width={80} press={() => setTotal(total + 100)}>
-            <Text style={styles.font16}>+100</Text>
-          </Button>
-          
-          <Button color={theme.color.grey} width={80} press={() => setTotal(total + 50)}>
-            <Text style={styles.font16}>+50</Text>
-          </Button>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.add}>
+        <Button color={theme.color.grey} width={80} press={() => setTotal(total + 1000)}>
+          <Text style={styles.font16}>+1000</Text>
+        </Button>
         
-        <View style={styles.rest}>
-          <Button color={theme.color.grey} width={80} press={() => setTotal(total - 1000)}>
-            <Text style={styles.font16}>-1000</Text>
-          </Button>
-          
-          <Button color={theme.color.grey} width={80} press={() => setTotal(total - 100)}>
-            <Text style={styles.font16}>-100</Text>
-          </Button>
-          
-          <Button color={theme.color.grey} width={80} press={() => setTotal(total - 50)}>
-            <Text style={styles.font16}>-50</Text>
-          </Button>
-        </View>
+        <Button color={theme.color.grey} width={80} press={() => setTotal(total + 100)}>
+          <Text style={styles.font16}>+100</Text>
+        </Button>
+        
+        <Button color={theme.color.grey} width={80} press={() => setTotal(total + 50)}>
+          <Text style={styles.font16}>+50</Text>
+        </Button>
+      </View>
+      
+      <View style={styles.rest}>
+        <Button color={theme.color.grey} width={80} press={() => setTotal(total - 1000)}>
+          <Text style={styles.font16}>-1000</Text>
+        </Button>
+        
+        <Button color={theme.color.grey} width={80} press={() => setTotal(total - 100)}>
+          <Text style={styles.font16}>-100</Text>
+        </Button>
+        
+        <Button color={theme.color.grey} width={80} press={() => setTotal(total - 50)}>
+          <Text style={styles.font16}>-50</Text>
+        </Button>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
- 
+  container: {
+    paddingHorizontal: 20
+  },
   font16: {
     fontSize: theme.fontSize.F16,
     lineHeight: 20
