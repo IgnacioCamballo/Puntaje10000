@@ -1,13 +1,35 @@
 import React from 'react'
-import { Dimensions, ScrollView, StyleSheet } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
 import Player from './Player'
 import theme from '../../theme/theme'
+import Button from '../atoms/Button'
+import useFarkle from '../../hooks/useFarkle'
+import NamePointsLine from '../molecules/NamePointsLine'
+import PointsView from '../molecules/PointsView'
+import AddPoints from '../molecules/AddPoints'
 
 export default function Players() {
+  const { players, whosOpen, setPlayerModal, setWhosOpen } = useFarkle()
+
   return (
-    <ScrollView style={styles.container}>
-      <Player />
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {players?.map(player => 
+          <Player key={player.key}>
+            <NamePointsLine press={() => setWhosOpen(whosOpen === player.key ? 0 : player.key)}>
+              <Text style={styles.name}>{player.name!}</Text>
+              <PointsView isOpen={whosOpen === player.key} points={player.points!}/>
+            </NamePointsLine>
+            
+            {whosOpen === player.key && <AddPoints playerKey={player.key!}/>}
+          </Player>
+        )}
+
+        <Button press={() => setPlayerModal(true)} color={theme.color.white} style={styles.button} width={240}>
+          <Text style={styles.text}>Agregar Jugador</Text>
+        </Button>
+      </ScrollView>
+    </View>
   )
 }
 
@@ -19,6 +41,20 @@ const styles = StyleSheet.create({
     borderColor: theme.color.black,
     borderWidth: 1,
     borderRadius: 30,
-    marginBottom: 12
+    marginBottom: 12,
+    padding: 10
+    },
+  text: {
+    fontSize: theme.fontSize.F24,
+    fontWeight: '500'
+  },
+  button: {
+    alignSelf: "center",
+    borderRadius: 12,
+    marginTop: 40
+  },
+  name: {
+    fontSize: theme.fontSize.F28,
+    fontWeight: "400"
   }
 })

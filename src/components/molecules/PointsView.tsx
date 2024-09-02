@@ -3,11 +3,15 @@ import { View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import theme from '../../theme/theme';
 
+type PointsViewProps = {
+  isOpen: boolean,
+  points: number
+}
 
-export default function PointsView() {
+export default function PointsView({isOpen, points}: PointsViewProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.font28}>1250</Text>
+      <Text style={styles.font28}>{points}</Text>
       <Text style={styles.font28}> pts </Text>
       <Icon
         name="caretdown"

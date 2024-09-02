@@ -1,19 +1,19 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
-import AddPoints from '../molecules/AddPoints'
 import theme from '../../theme/theme'
-import NamePointsLine from '../molecules/NamePointsLine'
-import PointsView from '../molecules/PointsView'
+import useFarkle from '../../hooks/useFarkle'
 
-export default function Player() {
+type PlayerProps = {
+  children: React.ReactNode
+}
+
+export default function Player({children}: PlayerProps) {
+  const {whosOpen, setWhosOpen} = useFarkle()
+  
   return (
     <View style={styles.container}>
-      <NamePointsLine>
-        <Text style={styles.name}>Nacho</Text>
-        <PointsView />
-      </NamePointsLine>
-      <AddPoints />
+      {children}
     </View>
   )
 }
@@ -21,13 +21,9 @@ export default function Player() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.color.white,
-    margin: 10,
     borderColor: theme.color.black,
     borderWidth: 1,
     borderRadius: 20,
-  },
-  name: {
-    fontSize: theme.fontSize.F28,
-    fontWeight: "400"
+    marginBottom: 10
   }
 })

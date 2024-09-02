@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Puntaje10000",
-    "slug": "Puntaje10000",
+    "name": "Puntaje 10.000",
+    "slug": "puntaje-10000",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,6 +23,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dedbf2ff-a8bd-42f2-8d44-18d4cbaa744d"
+      }
     }
   }
 }
