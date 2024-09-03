@@ -1,15 +1,17 @@
 import React from 'react'
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
-import Player from './Player'
-import theme from '../../theme/theme'
-import Button from '../atoms/Button'
+
 import useFarkle from '../../hooks/useFarkle'
+import theme from '../../theme/theme'
+import translations from "../../lenguage/lenguage.json"
+import Button from '../atoms/Button'
+import Player from './Player'
 import NamePointsLine from '../molecules/NamePointsLine'
 import PointsView from '../molecules/PointsView'
 import AddPoints from '../molecules/AddPoints'
 
 export default function Players() {
-  const { players, whosOpen, setPlayerModal, setWhosOpen } = useFarkle()
+  const { players, whosOpen, setPlayerModal, setWhosOpen, lenguage } = useFarkle()
 
   return (
     <View style={styles.container}>
@@ -26,7 +28,7 @@ export default function Players() {
         )}
 
         <Button press={() => setPlayerModal(true)} color={theme.color.white} style={styles.button} width={240}>
-          <Text style={styles.text}>Agregar Jugador</Text>
+          <Text style={styles.text}>{translations.addPlayer.find(i => i.lenguage === lenguage)?.text}</Text>
         </Button>
       </ScrollView>
     </View>

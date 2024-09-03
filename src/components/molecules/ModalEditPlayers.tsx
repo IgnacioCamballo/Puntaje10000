@@ -1,33 +1,33 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity, TextInput, Alert } from 'react-native'
 import Constants from "expo-constants"
-
 import Icon from 'react-native-vector-icons/AntDesign'
-import theme from '../../theme/theme'
-import Button from '../atoms/Button'
+
 import useFarkle from '../../hooks/useFarkle'
+import theme from '../../theme/theme'
+import translations from "../../lenguage/lenguage.json"
+import Button from '../atoms/Button'
 import Player from '../organisms/Player'
 import NamePointsLine from './NamePointsLine'
 import TextInputEdit from '../atoms/TextInputEdit'
 import { PlayerType } from '../../types'
 
 type ModalPlayerProps = {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>
   setModalEditPlayers: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ModalEditPlayers({setModal, setModalEditPlayers}: ModalPlayerProps) {
-  const {players, setPlayers} = useFarkle()
+export default function ModalEditPlayers({setModalEditPlayers}: ModalPlayerProps) {
+  const {players, setPlayers, lenguage} = useFarkle()
   
   
   
   const deletePlayerAlert = (player: PlayerType) => {
     Alert.alert(
       '',
-      `¿Seguro deseas eliminar a ${player.name}?`,
+      `${translations.alertDeletePlayer.find(i => i.lenguage === lenguage)?.text} ${player.name}?`,
       [
         {
-          text: 'Cancelar',
+          text: `${translations.cancel.find(i => i.lenguage === lenguage)?.text}`,
           style: 'cancel'
         },
         {
@@ -59,14 +59,14 @@ export default function ModalEditPlayers({setModal, setModalEditPlayers}: ModalP
                   size={18}
                 />
 
-                <Text>Eliminar</Text>
+                <Text>{translations.delete.find(i => i.lenguage === lenguage)?.text}</Text>
               </Button>
             </NamePointsLine>
           </Player>
         )}
 
         <Button press={() => setModalEditPlayers(false)} color={theme.color.white} style={styles.button} width={240}>
-          <Text style={styles.text}>Terminar Editado</Text>
+          <Text style={styles.text}>{translations.finishEditing.find(i => i.lenguage === lenguage)?.text}</Text>
         </Button>
       </View>
 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    height: Dimensions.get("window").height - Constants.statusBarHeight - 80,
+    height: Dimensions.get("window").height - Constants.statusBarHeight - 60,
     width: Dimensions.get("window").width,
     alignItems: "center",
   },

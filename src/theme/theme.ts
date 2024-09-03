@@ -15,6 +15,7 @@ const theme = {
   },
   fontSize: {
     F16: 16,
+    F18: 18,
     F20: 20,
     F24: 24,
     F28: 28

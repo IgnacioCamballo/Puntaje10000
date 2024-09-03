@@ -5,13 +5,15 @@ import Icon from 'react-native-vector-icons/AntDesign'
 
 import useFarkle from '../../hooks/useFarkle'
 import theme from '../../theme/theme'
+import translations from "../../lenguage/lenguage.json"
 
 type ModalMenuProps = {
   setModal: React.Dispatch<React.SetStateAction<boolean>>
   setModalEditPlayers: React.Dispatch<React.SetStateAction<boolean>>
+  setModalRules: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ModalMenu({setModal, setModalEditPlayers}: ModalMenuProps) {
+export default function ModalMenu({setModal, setModalEditPlayers, setModalRules}: ModalMenuProps) {
   const {players, lenguage, setPlayers, setLenguage} = useFarkle()
 
   const [lenguageView, setLenguageView] = useState(false)
@@ -19,10 +21,10 @@ export default function ModalMenu({setModal, setModalEditPlayers}: ModalMenuProp
   const resetAlert = () => {
     Alert.alert(
       '',
-      "Los puntajes de todos los jugadores volveran a 0, ¿estas seguro?",
+      `${translations.alertReseteScores.find(i => i.lenguage === lenguage)?.text}`,
       [
         {
-          text: 'Cancelar',
+          text: `${translations.cancel.find(i => i.lenguage === lenguage)?.text}`,
           onPress: () => setModal(false),
           style: 'cancel'
         },
@@ -50,7 +52,7 @@ export default function ModalMenu({setModal, setModalEditPlayers}: ModalMenuProp
     <View style={styles.generalContainer}>
       <View style={styles.container}>
         <View style={styles.rowLine}>
-          <Text style={styles.text} onPress={() => setLenguageView(!lenguageView)}>Idioma</Text>
+          <Text style={styles.text} onPress={() => setLenguageView(!lenguageView)}>{translations.lenguage.find(i => i.lenguage === lenguage)?.text}</Text>
           <Icon 
             name='closecircleo'
             size={24}
@@ -66,9 +68,9 @@ export default function ModalMenu({setModal, setModalEditPlayers}: ModalMenuProp
           </View>
         }
 
-        <Text style={styles.text} onPress={() => resetAlert()}>Resetear Puntos</Text>
-        <Text style={styles.text} onPress={() => {setModalEditPlayers(true), setModal(false)}}>Editar Jugadores</Text>
-        <Text style={styles.text} onPress={() => {}}>Leer Reglas</Text>
+        <Text style={styles.text} onPress={() => resetAlert()}>{translations.reseteScores.find(i => i.lenguage === lenguage)?.text}</Text>
+        <Text style={styles.text} onPress={() => {setModalEditPlayers(true), setModal(false)}}>{translations.editPlayers.find(i => i.lenguage === lenguage)?.text}</Text>
+        <Text style={styles.text} onPress={() => {setModalRules(true), setModal(false)}}>{translations.rules.find(i => i.lenguage === lenguage)?.text}</Text>
       </View>
 
       <TouchableOpacity style={styles.transparentView} activeOpacity={0} onPress={()=> setModal(false)}/>

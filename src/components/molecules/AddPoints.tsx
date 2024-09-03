@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, Alert } from 'react-native'
+
+import useFarkle from '../../hooks/useFarkle'
+import translations from "../../lenguage/lenguage.json"
 import theme from '../../theme/theme'
 import TextShownArea from '../atoms/TextShownArea'
 import Button from '../atoms/Button'
 import ButtonsSum from './ButtonsSum'
-import useFarkle from '../../hooks/useFarkle'
 import { PlayerType } from '../../types'
 
 type AddPointsProps = {
@@ -12,7 +14,7 @@ type AddPointsProps = {
 }
 
 export default function AddPoints({playerKey}: AddPointsProps) {
-  const {players, setPlayers} = useFarkle()
+  const {players, setPlayers, lenguage} = useFarkle()
 
   const [sum, setSum] = useState(0)
 
@@ -23,22 +25,11 @@ export default function AddPoints({playerKey}: AddPointsProps) {
     if(actualPlayer!.points + sum < 0){
       Alert.alert(
         '',
-        "El puntaje no puede ser menor a 0",
+        `${translations.alertNegativeScore.find(i => i.lenguage === lenguage)?.text}`,
         [
           {
             text: 'OK',
             onPress: () => setSum(0),
-            style: 'cancel'
-          },
-        ],
-      )
-    } else if (actualPlayer!.points + sum > 10000) {
-      Alert.alert(
-        '',
-        "El puntaje no puede ser mayor a 10.000",
-        [
-          {
-            text: 'OK',
             style: 'cancel'
           },
         ],
@@ -75,7 +66,7 @@ export default function AddPoints({playerKey}: AddPointsProps) {
             </Button>
 
             <Button color={theme.color.greenAddButton} width={60} press={() => addScore()}>
-              <Text style={styles.font16}>Sumar</Text>
+              <Text style={styles.font16}>{translations.sum.find(i => i.lenguage === lenguage)?.text}</Text>
             </Button>
           </View>
         </View>

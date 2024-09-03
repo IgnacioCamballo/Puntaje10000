@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity, TextInput } from 'react-native'
 import Constants from "expo-constants"
-
 import Icon from 'react-native-vector-icons/AntDesign'
-import theme from '../../theme/theme'
-import Button from '../atoms/Button'
+
 import useFarkle from '../../hooks/useFarkle'
+import theme from '../../theme/theme'
+import translations from "../../lenguage/lenguage.json"
+import Button from '../atoms/Button'
 import { PlayerType } from '../../types'
 
 type ModalPlayerProps = {
@@ -13,7 +14,7 @@ type ModalPlayerProps = {
 }
 
 export default function ModalPlayer({setModal}: ModalPlayerProps) {
-  const {players, setPlayers, setPlayerModal} = useFarkle()
+  const {players, setPlayers, setPlayerModal, lenguage} = useFarkle()
 
   const [name, setName] = useState("")
 
@@ -51,19 +52,19 @@ export default function ModalPlayer({setModal}: ModalPlayerProps) {
           style={styles.icon}
         />
 
-        <Text style={styles.name}>Nombre:</Text>
+        <Text style={styles.name}>{translations.name.find(i => i.lenguage === lenguage)?.text}:</Text>
 
         <TextInput
           style={styles.textInput}
           onChangeText={setName}
           value={name}
           maxLength={20}
-          placeholder="Ingresa el Nombre"
+          placeholder={translations.insertName.find(i => i.lenguage === lenguage)?.text}
           placeholderTextColor={theme.color.grey}
         />
 
         <Button color={theme.color.title} press={() => addPlayer()} disabled={name === ""}>
-          <Text style={styles.textButton}>Agregar Jugador</Text>
+          <Text style={styles.textButton}>{translations.addPlayer.find(i => i.lenguage === lenguage)?.text}</Text>
         </Button>
       </View>
 
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    height: Dimensions.get("window").height - Constants.statusBarHeight - 80,
+    height: Dimensions.get("window").height - Constants.statusBarHeight - 60,
     width: Dimensions.get("window").width,
     alignItems: "center",
     justifyContent: "center"

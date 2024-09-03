@@ -1,24 +1,29 @@
 import React, { useState } from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import Constants from "expo-constants"
-import theme from '../theme/theme'
-import Players from '../components/organisms/Players'
 import Icon from 'react-native-vector-icons/AntDesign'
+
+import useFarkle from '../hooks/useFarkle'
+import theme from '../theme/theme'
+import translations from "../lenguage/lenguage.json"
+import Players from '../components/organisms/Players'
 import ModalMenu from '../components/molecules/ModalMenu'
 import ModalPlayer from '../components/molecules/ModalPlayer'
-import useFarkle from '../hooks/useFarkle'
 import ModalEditPlayers from '../components/molecules/ModalEditPlayers'
+import ModalRules from '../components/molecules/ModalRules'
+
 
 export default function Main() {
-  const { playerModal, setPlayerModal, setWhosOpen } = useFarkle()
+  const { playerModal, setPlayerModal, setWhosOpen, lenguage } = useFarkle()
 
   const [modalMenu, setModalMenu] = useState(false)
   const [modalEditPlayers, setModalEditPlayers] = useState(false)
+  const [modalRules, setModalRules] = useState(false)
 
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>10.000</Text>
+      <Text style={styles.titulo}>{translations.title.find(i => i.lenguage === lenguage)?.text}</Text>
       
       <Players />
 
@@ -32,11 +37,13 @@ export default function Main() {
         onPress={() => {setModalMenu(true), setWhosOpen(0)}}
       />
 
-      {modalMenu === true && <ModalMenu setModal={setModalMenu} setModalEditPlayers={setModalEditPlayers}/>}
+      {modalMenu === true && <ModalMenu setModal={setModalMenu} setModalRules={setModalRules} setModalEditPlayers={setModalEditPlayers}/>}
 
       {playerModal && <ModalPlayer setModal={setPlayerModal}/>}
 
-      {modalEditPlayers && <ModalEditPlayers setModal={setModalMenu} setModalEditPlayers={setModalEditPlayers}/>}
+      {modalEditPlayers && <ModalEditPlayers setModalEditPlayers={setModalEditPlayers}/>}
+
+      {modalRules && <ModalRules setModal={setModalRules}/>}
     </View>
   )
 }
