@@ -30,10 +30,6 @@ export default function Players() {
         <Button press={() => setPlayerModal(true)} color={theme.color.white} style={styles.button} width={240}>
           <Text style={styles.text}>{translations.addPlayer.find(i => i.lenguage === lenguage)?.text}</Text>
         </Button>
-
-        <Button press={() => {throw new Error("error de prueba")}}>
-          <Text>Error</Text>
-        </Button>
       </ScrollView>
     </View>
   )

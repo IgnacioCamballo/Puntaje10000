@@ -58,7 +58,9 @@ const styles = StyleSheet.create({
   },
   titulo: {
     fontSize: 60,
-    height: 80
+    height: 80,
+    color: theme.color.title,
+    fontFamily: "LakkiReddy-Regular"
   },
   publicidad: {
     height: 60, 
