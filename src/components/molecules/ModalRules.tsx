@@ -208,7 +208,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 60,
     height: 80,
-    textAlign: "center"
+    textAlign: "center",
+    color: theme.color.title,
+    fontFamily: "Lakki"
   },
   textTitle: {
     fontSize: theme.fontSize.F28,

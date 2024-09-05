@@ -12,29 +12,29 @@ export default function ButtonsSum({total, setTotal}: ButtonSumProps) {
   return (
     <View style={styles.container}>
       <View style={styles.add}>
-        <Button color={theme.color.grey} width={80} press={() => setTotal(total + 1000)}>
+        <Button style={styles.button} color={theme.color.grey} width={80} press={() => setTotal(total + 1000)}>
           <Text style={styles.font16}>+1000</Text>
         </Button>
         
-        <Button color={theme.color.grey} width={80} press={() => setTotal(total + 100)}>
+        <Button style={styles.button} color={theme.color.grey} width={80} press={() => setTotal(total + 100)}>
           <Text style={styles.font16}>+100</Text>
         </Button>
         
-        <Button color={theme.color.grey} width={80} press={() => setTotal(total + 50)}>
+        <Button style={styles.button} color={theme.color.grey} width={80} press={() => setTotal(total + 50)}>
           <Text style={styles.font16}>+50</Text>
         </Button>
       </View>
       
       <View style={styles.rest}>
-        <Button color={theme.color.grey} width={80} press={() => setTotal(total - 1000)}>
+        <Button style={styles.button} color={theme.color.grey} width={80} press={() => setTotal(total - 1000)}>
           <Text style={styles.font16}>-1000</Text>
         </Button>
         
-        <Button color={theme.color.grey} width={80} press={() => setTotal(total - 100)}>
+        <Button style={styles.button} color={theme.color.grey} width={80} press={() => setTotal(total - 100)}>
           <Text style={styles.font16}>-100</Text>
         </Button>
         
-        <Button color={theme.color.grey} width={80} press={() => setTotal(total - 50)}>
+        <Button style={styles.button} color={theme.color.grey} width={80} press={() => setTotal(total - 50)}>
           <Text style={styles.font16}>-50</Text>
         </Button>
       </View>
@@ -57,11 +57,14 @@ const styles = StyleSheet.create({
   add: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 8
+    marginVertical: 12
   },
   rest: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 4
+  },
+  button: {
+    height: 36
   }
 })

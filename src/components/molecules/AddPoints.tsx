@@ -56,16 +56,16 @@ export default function AddPoints({playerKey}: AddPointsProps) {
       
       <View style={styles.buttonsContainer}>
         <View style={styles.points}>
-          <TextShownArea color={theme.color.softGrey} width={140} height={32}>
+          <TextShownArea color={theme.color.softGrey} width={140} height={36}>
             <Text style={styles.font24}>{sum}</Text>
           </TextShownArea>
 
           <View style={styles.sumCancelButtons}>
-            <Button color={theme.color.redCancel} width={60} press={() => {setSum(0)}}>
+            <Button color={theme.color.redCancel} width={64} press={() => {setSum(0)}}>
               <Text style={styles.font16}>Cancel</Text>
             </Button>
 
-            <Button color={theme.color.greenAddButton} width={60} press={() => addScore()}>
+            <Button color={theme.color.greenAddButton} width={64} press={() => addScore()}>
               <Text style={styles.font16}>{translations.sum.find(i => i.lenguage === lenguage)?.text}</Text>
             </Button>
           </View>

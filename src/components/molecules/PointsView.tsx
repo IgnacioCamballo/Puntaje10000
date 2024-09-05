@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 import theme from '../../theme/theme';
 
@@ -13,12 +14,14 @@ export default function PointsView({isOpen, points}: PointsViewProps) {
     <View style={styles.container}>
       <Text style={styles.font28}>{points}</Text>
       <Text style={styles.font28}> pts </Text>
-      <Icon
-        name="caretdown"
-        color={theme.color.grey}
-        size={18}
-        style={styles.arrow}
-      />
+      <View>
+        <Icon
+          name="caretdown"
+          color={theme.color.grey}
+          size={18}
+          style={styles.arrow}
+        />
+      </View>
     </View>
   )
 }

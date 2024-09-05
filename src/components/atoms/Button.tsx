@@ -19,6 +19,7 @@ export default function Button({children, press, color, width, style, disabled}:
       style={[{
         width: width,
         alignItems: "center",
+        justifyContent: "center",
         paddingVertical: 4,
         paddingHorizontal: 4,
         backgroundColor: color,

@@ -47,7 +47,7 @@ export default function ModalPlayer({setModal}: ModalPlayerProps) {
       <View style={styles.container}>
         <Icon 
           name='closecircleo'
-          size={24}
+          size={28}
           onPress={() => setModal(false)}
           style={styles.icon}
         />
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: theme.color.black,
     borderWidth: 1,
-    gap: 8
+    gap: 12
   },
   blackBackGround: {
     position: "absolute",
@@ -103,14 +103,15 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignSelf: "flex-end",
-    marginBottom: -16
+    marginBottom: -28,
+    zIndex: 1
   },
   name: {
-    fontSize: theme.fontSize.F24,
+    fontSize: theme.fontSize.F28,
   },
   textInput: {
-    width: 240,
-    fontSize: theme.fontSize.F24,
+    width: 280,
+    fontSize: theme.fontSize.F28,
     textAlign: "right",
     textAlignVertical: "bottom",
     borderColor: theme.color.grey,
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8
   },
   textButton: {
-    fontSize: theme.fontSize.F20,
+    fontSize: theme.fontSize.F24,
     fontWeight: "500"
   }
 })
