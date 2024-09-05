@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 60,
     height: 80,
     color: theme.color.title,
-    fontFamily: "LakkiReddy-Regular"
+    fontFamily: "Lakki"
   },
   publicidad: {
     height: 60, 
