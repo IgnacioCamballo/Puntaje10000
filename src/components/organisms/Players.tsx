@@ -23,7 +23,7 @@ export default function Players() {
               <PointsView isOpen={whosOpen === player.key} points={player.points!}/>
             </NamePointsLine>
             
-            {whosOpen === player.key && <AddPoints playerKey={player.key!}/>}
+            <AddPoints playerKey={player.key!}/>
           </Player>
         )}
 

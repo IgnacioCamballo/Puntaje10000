@@ -44,6 +44,7 @@ export default function TextInputEdit({player}: textInputEditProps) {
 const styles = StyleSheet.create({
   name: {
     fontSize: theme.fontSize.F28,
-    fontWeight: "400"
+    fontWeight: "400",
+    width: 200
   }
 })

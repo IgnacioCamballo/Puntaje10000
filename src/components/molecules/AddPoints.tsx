@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, Alert } from 'react-native'
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import useFarkle from '../../hooks/useFarkle'
 import translations from "../../lenguage/lenguage.json"
@@ -14,9 +15,44 @@ type AddPointsProps = {
 }
 
 export default function AddPoints({playerKey}: AddPointsProps) {
-  const {players, setPlayers, lenguage} = useFarkle()
+  const {players, setPlayers, lenguage, whosOpen, setWhosOpen} = useFarkle()
 
   const [sum, setSum] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
+
+  const scale = useSharedValue(0)
+  const top = useSharedValue(0)
+  const height = useSharedValue(0)
+  const opacity = useSharedValue(0)
+
+  useEffect(() => {
+    if (whosOpen === playerKey) {
+      setIsOpen(true)
+    } else {
+      setIsOpen(false)
+    }
+  }, [whosOpen])
+
+  useEffect(() => {
+    if (isOpen) {
+      scale.value = withTiming(1, {duration: 200, easing: Easing.inOut(Easing.ease)})
+      top.value = withTiming(0, {duration: 300})
+      height.value = withTiming(400, {duration: 300})
+      opacity.value = withTiming(1, {duration: 300})
+    } else {
+      scale.value = withTiming(0, {duration: 300})
+      top.value = withTiming(-10, {duration: 200})
+      height.value = withTiming(0, {duration: 200})
+      opacity.value = withTiming(0, {duration: 300})
+    }
+  }, [isOpen])
+
+  const customeStyles = useAnimatedStyle(() => ({
+    transform: [{scaleY: scale.value}],
+    top: top.value,
+    maxHeight: height.value,
+    opacity: opacity.value
+  }))
 
   const addScore = () => {
     const actualPlayer = players.find(player => player.key === playerKey)
@@ -46,12 +82,13 @@ export default function AddPoints({playerKey}: AddPointsProps) {
       playersCopy.splice(index, 1, editedPlayer)
       setPlayers(playersCopy)
       setSum(0)
+      setWhosOpen(0)
     }
   }
 
   return (
     
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, customeStyles]}>
       <View style={styles.line}/>
       
       <View style={styles.buttonsContainer}>
@@ -73,7 +110,7 @@ export default function AddPoints({playerKey}: AddPointsProps) {
 
         <ButtonsSum total={sum} setTotal={setSum}/>
       </View>
-    </View>
+    </Animated.View>
   )
 }
 

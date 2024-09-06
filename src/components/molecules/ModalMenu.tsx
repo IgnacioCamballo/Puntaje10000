@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated'
 import Constants from "expo-constants"
 import Icon from 'react-native-vector-icons/AntDesign'
 
 import useFarkle from '../../hooks/useFarkle'
 import theme from '../../theme/theme'
 import translations from "../../lenguage/lenguage.json"
-import Animated, { Easing, runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-import { opacity } from 'react-native-reanimated/lib/typescript/reanimated2/Colors'
 
 type ModalMenuProps = {
   modal: boolean,
@@ -35,15 +34,15 @@ export default function ModalMenu({modal, setModal, setModalEditPlayers, setModa
       top.value = withTiming(16, {duration: 400})
       right.value = withTiming(20, {duration: 400})
       width.value = withTiming(300, {duration: 400})
-      height.value = withTiming(180, {duration: 400})
-      opacity.value = withTiming(1, {duration: 1000})
+      height.value = withTiming(200, {duration: 400})
+      opacity.value = withSequence(withTiming(0, {duration: 250}), withTiming(1, {duration: 100}))
     } else {
       scale.value = withTiming(0, {duration: 700}, () => {runOnJS(setModal)(false)})
       top.value = withTiming(16, { duration: 400});
       right.value = withTiming(20, { duration: 400});
       width.value = withTiming(0, { duration: 400});
       height.value = withTiming(0, { duration: 400});
-      opacity.value = withTiming(0, { duration: 250});
+      opacity.value = withTiming(0, { duration: 200});
     }
   }, [isOpen])
 
@@ -99,6 +98,7 @@ export default function ModalMenu({modal, setModal, setModalEditPlayers, setModa
               name='closecircleo'
               size={24}
               onPress={() => setIsOppen(false)}
+              style={styles.icon}
               />
           </View>
 
@@ -168,5 +168,8 @@ const styles = StyleSheet.create({
   },
   bgGrey: {
     backgroundColor: theme.color.softGrey
+  },
+  icon: {
+    top: -4
   }
 })
