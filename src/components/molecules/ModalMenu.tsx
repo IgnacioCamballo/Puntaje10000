@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Constants from "expo-constants"
 import Icon from 'react-native-vector-icons/AntDesign'
@@ -6,17 +6,58 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import useFarkle from '../../hooks/useFarkle'
 import theme from '../../theme/theme'
 import translations from "../../lenguage/lenguage.json"
+import Animated, { Easing, runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { opacity } from 'react-native-reanimated/lib/typescript/reanimated2/Colors'
 
 type ModalMenuProps = {
+  modal: boolean,
   setModal: React.Dispatch<React.SetStateAction<boolean>>
   setModalEditPlayers: React.Dispatch<React.SetStateAction<boolean>>
   setModalRules: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ModalMenu({setModal, setModalEditPlayers, setModalRules}: ModalMenuProps) {
+export default function ModalMenu({modal, setModal, setModalEditPlayers, setModalRules}: ModalMenuProps) {
   const {players, lenguage, setPlayers, setLenguage} = useFarkle()
 
   const [lenguageView, setLenguageView] = useState(false)
+  const [isOpen, setIsOppen] = useState(modal)
+
+  const scale = useSharedValue(0)
+  const top = useSharedValue(16)
+  const right = useSharedValue(20)
+  const width = useSharedValue(0)
+  const height = useSharedValue(0)
+  const opacity = useSharedValue(0)
+
+  useEffect(() => {
+    if(isOpen) {
+      scale.value = withTiming(1, {duration: 300})
+      top.value = withTiming(16, {duration: 400})
+      right.value = withTiming(20, {duration: 400})
+      width.value = withTiming(300, {duration: 400})
+      height.value = withTiming(180, {duration: 400})
+      opacity.value = withTiming(1, {duration: 1000})
+    } else {
+      scale.value = withTiming(0, {duration: 700}, () => {runOnJS(setModal)(false)})
+      top.value = withTiming(16, { duration: 400});
+      right.value = withTiming(20, { duration: 400});
+      width.value = withTiming(0, { duration: 400});
+      height.value = withTiming(0, { duration: 400});
+      opacity.value = withTiming(0, { duration: 250});
+    }
+  }, [isOpen])
+
+  const customeStyles = useAnimatedStyle(() => ({
+    transform: [{scale: scale.value}],
+    top: top.value,
+    right: right.value,
+    maxWidth: width.value,
+    maxHeight: height.value,
+  }))
+
+  const customeHideStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value
+  }))
   
   const resetAlert = () => {
     Alert.alert(
@@ -50,28 +91,29 @@ export default function ModalMenu({setModal, setModalEditPlayers, setModalRules}
 
   return (
     <View style={styles.generalContainer}>
-      <View style={styles.container}>
-        <View style={styles.rowLine}>
-          <Text style={styles.text} onPress={() => setLenguageView(!lenguageView)}>{translations.lenguage.find(i => i.lenguage === lenguage)?.text}</Text>
-          <Icon 
-            name='closecircleo'
-            size={24}
-            onPress={() => setModal(false)}
-            style={styles.icon}
-            />
-        </View>
-
-        {lenguageView && 
-          <View style={styles.lenguagesContainer}>
-            <Text onPress={() => setLenguage("es")} style={[styles.textLenguage, lenguage === "es" ? styles.bgGrey : {}]}>Español</Text>
-            <Text onPress={() => setLenguage("en")} style={[styles.textLenguage, lenguage === "en" ? styles.bgGrey : {}]}>English</Text>
+      <Animated.View style={[styles.container, customeStyles]}>
+        <Animated.View style={[customeHideStyles]}>
+          <View style={styles.rowLine}>
+            <Text style={styles.text} onPress={() => setLenguageView(!lenguageView)}>{translations.lenguage.find(i => i.lenguage === lenguage)?.text}</Text>
+            <Icon 
+              name='closecircleo'
+              size={24}
+              onPress={() => setIsOppen(false)}
+              />
           </View>
-        }
 
-        <Text style={styles.text} onPress={() => resetAlert()}>{translations.reseteScores.find(i => i.lenguage === lenguage)?.text}</Text>
-        <Text style={styles.text} onPress={() => {setModalEditPlayers(true), setModal(false)}}>{translations.editPlayers.find(i => i.lenguage === lenguage)?.text}</Text>
-        <Text style={styles.text} onPress={() => {setModalRules(true), setModal(false)}}>{translations.rules.find(i => i.lenguage === lenguage)?.text}</Text>
-      </View>
+          {lenguageView && 
+            <View style={styles.lenguagesContainer}>
+              <Text onPress={() => setLenguage("es")} style={[styles.textLenguage, lenguage === "es" ? styles.bgGrey : {}]}>Español</Text>
+              <Text onPress={() => setLenguage("en")} style={[styles.textLenguage, lenguage === "en" ? styles.bgGrey : {}]}>English</Text>
+            </View>
+          }
+
+          <Text style={styles.text} onPress={() => resetAlert()}>{translations.reseteScores.find(i => i.lenguage === lenguage)?.text}</Text>
+          <Text style={styles.text} onPress={() => {setModalEditPlayers(true), setModal(false)}}>{translations.editPlayers.find(i => i.lenguage === lenguage)?.text}</Text>
+          <Text style={styles.text} onPress={() => {setModalRules(true), setModal(false)}}>{translations.rules.find(i => i.lenguage === lenguage)?.text}</Text>
+        </Animated.View>
+      </Animated.View>
 
       <TouchableOpacity style={styles.transparentView} activeOpacity={0} onPress={()=> setModal(false)}/>
     </View>
@@ -118,9 +160,6 @@ const styles = StyleSheet.create({
   lenguagesContainer: {
     borderWidth: 0.5,
     borderColor: theme.color.black,
-  },
-  icon: {
-    transform: [{translateY: -6}]
   },
   rowLine: {
     flexDirection: "row",

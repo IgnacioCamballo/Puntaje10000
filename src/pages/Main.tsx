@@ -20,7 +20,6 @@ export default function Main() {
   const [modalEditPlayers, setModalEditPlayers] = useState(false)
   const [modalRules, setModalRules] = useState(false)
 
-
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>{translations.title.find(i => i.lenguage === lenguage)?.text}</Text>
@@ -37,7 +36,7 @@ export default function Main() {
         onPress={() => {setModalMenu(true), setWhosOpen(0)}}
       />
 
-      {modalMenu === true && <ModalMenu setModal={setModalMenu} setModalRules={setModalRules} setModalEditPlayers={setModalEditPlayers}/>}
+      {modalMenu === true && <ModalMenu modal={modalMenu} setModal={setModalMenu} setModalRules={setModalRules} setModalEditPlayers={setModalEditPlayers}/>}
 
       {playerModal && <ModalPlayer setModal={setPlayerModal}/>}
 

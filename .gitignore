@@ -36,3 +36,4 @@ yarn-error.*
 
 # creedentials
 google-services.json
+.keystore
