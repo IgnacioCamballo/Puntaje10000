@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    height: Dimensions.get("window").height - Constants.statusBarHeight - 60,
+    height: Dimensions.get("window").height - Constants.statusBarHeight - 70,
     width: Dimensions.get("window").width,
     alignItems: "center",
     justifyContent: "center"

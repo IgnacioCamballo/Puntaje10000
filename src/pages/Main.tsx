@@ -11,10 +11,11 @@ import ModalMenu from '../components/molecules/ModalMenu'
 import ModalPlayer from '../components/molecules/ModalPlayer'
 import ModalEditPlayers from '../components/molecules/ModalEditPlayers'
 import ModalRules from '../components/molecules/ModalRules'
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 
 
 export default function Main() {
-  const { playerModal, setPlayerModal, setWhosOpen, lenguage } = useFarkle()
+  const { playerModal, setPlayerModal, setWhosOpen, lenguage, addsInitialized } = useFarkle()
 
   const [modalMenu, setModalMenu] = useState(false)
   const [modalEditPlayers, setModalEditPlayers] = useState(false)
@@ -26,7 +27,17 @@ export default function Main() {
       
       <Players />
 
-      <Text style={styles.publicidad}>Publicidad</Text>
+      {addsInitialized && (
+        <View style={styles.publicidad}>
+        <BannerAd 
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          unitId={theme.adds.test}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true
+          }}
+          />
+        </View>
+      )}
 
       <Icon 
         name='bars'
@@ -62,7 +73,7 @@ const styles = StyleSheet.create({
     fontFamily: "Lakki"
   },
   publicidad: {
-    height: 60, 
+    height: 70, 
     width: "100%", 
     backgroundColor: theme.color.white,
     position: "relative",

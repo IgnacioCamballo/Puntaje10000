@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    height: Dimensions.get("window").height - Constants.statusBarHeight,
+    height: Dimensions.get("window").height - Constants.statusBarHeight -70,
     width: Dimensions.get("window").width,
     backgroundColor: theme.color.base,
     paddingBottom: 12,

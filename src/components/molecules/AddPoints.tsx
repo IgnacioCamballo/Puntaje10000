@@ -35,12 +35,12 @@ export default function AddPoints({playerKey}: AddPointsProps) {
 
   useEffect(() => {
     if (isOpen) {
-      scale.value = withTiming(1, {duration: 200, easing: Easing.inOut(Easing.ease)})
-      top.value = withTiming(0, {duration: 300})
+      scale.value = withTiming(1, {duration: 100, easing: Easing.inOut(Easing.ease)})
+      top.value = withTiming(0, {duration: 100})
       height.value = withTiming(400, {duration: 300})
       opacity.value = withTiming(1, {duration: 300})
     } else {
-      scale.value = withTiming(0, {duration: 300})
+      scale.value = withTiming(0, {duration: 200})
       top.value = withTiming(-10, {duration: 200})
       height.value = withTiming(0, {duration: 200})
       opacity.value = withTiming(0, {duration: 300})

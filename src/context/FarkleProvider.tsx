@@ -1,6 +1,7 @@
 import { useState, createContext, useEffect } from "react"
 import { FarkleContextProps, PlayerType } from "../types"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import MobileAds from "react-native-google-mobile-ads"
 
 interface props {
   children: JSX.Element | JSX.Element[]
@@ -13,6 +14,19 @@ const FarkleProvider = ({children}: props) => {
   const [lenguage, setLenguage] = useState("es")
   const [playerModal, setPlayerModal] = useState(false)
   const [whosOpen, setWhosOpen] = useState(0)
+  const [addsInitialized, setAddsInitialized] = useState(false)
+
+  useEffect(() => {
+    const addsInit = async () => {
+      try {
+        await MobileAds().initialize()
+        setAddsInitialized(true)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    addsInit()
+  }, [])
 
   const getLenguageStorage = async () => {
     try {
@@ -60,6 +74,7 @@ const FarkleProvider = ({children}: props) => {
         playerModal,
         whosOpen,
         lenguage,
+        addsInitialized,
         setPlayers,
         setPlayerModal,
         setWhosOpen,
