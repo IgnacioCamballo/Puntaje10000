@@ -11,7 +11,7 @@ import ModalMenu from '../components/molecules/ModalMenu'
 import ModalPlayer from '../components/molecules/ModalPlayer'
 import ModalEditPlayers from '../components/molecules/ModalEditPlayers'
 import ModalRules from '../components/molecules/ModalRules'
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads'
 
 
 export default function Main() {

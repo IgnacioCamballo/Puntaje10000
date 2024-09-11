@@ -33,7 +33,3 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
-
-# creedentials
-google-services.json
-.keystore
